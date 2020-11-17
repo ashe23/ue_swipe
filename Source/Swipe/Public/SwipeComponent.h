@@ -37,17 +37,18 @@ public:
 	void TouchEnd();
 		
 	UPROPERTY(BlueprintAssignable, Category = "Swipe")
-	FSwipeUpDelegate SwipeUpDelegate;
+	FSwipeUpDelegate OnSwipeUp;
 	UPROPERTY(BlueprintAssignable, Category = "Swipe")
-	FSwipeDownDelegate SwipeDownDelegate;
+	FSwipeDownDelegate OnSwipeDown;
 	UPROPERTY(BlueprintAssignable, Category = "Swipe")
-	FSwipeLeftDelegate SwipeLeftDelegate;
+	FSwipeLeftDelegate OnSwipeLeft;
 	UPROPERTY(BlueprintAssignable, Category = "Swipe")
-	FSwipeRightDelegate SwipeRightDelegate;
+	FSwipeRightDelegate OnSwipeRight;
 
 public:
+	// Amount, exceeding which triggering swipe event. Default value 50 units
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Swipe")
-	float SwipeAmount;
+	float SwipeDistance;
 private:
 	bool bTouched;
 	FVector2D TouchStartLocation;

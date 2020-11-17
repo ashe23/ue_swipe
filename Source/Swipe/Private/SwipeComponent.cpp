@@ -13,7 +13,7 @@ USwipeComponent::USwipeComponent()
 
 
 	bTouched = false;
-	SwipeAmount = 50.0f;
+	SwipeDistance = 50.0f;
 	SwipeTime = 0.0f;
 	bSwipeTriggered = false;
 	bSwipeEnded = true;
@@ -84,7 +84,7 @@ void USwipeComponent::CheckSwipe()
 		SwipeTime = SwipeEndTime - SwipeStartTime;
 
 		float TouchDistance = FVector2D::Distance(GetTouchCoordinates(), TouchStartLocation);
-		if (TouchDistance > SwipeAmount)
+		if (TouchDistance > SwipeDistance)
 		{
 			bSwipeTriggered = true;
 		}
@@ -100,22 +100,22 @@ void USwipeComponent::CheckSwipe()
 			{
 				if (Offset.X > 0.0f)
 				{
-					SwipeRightDelegate.Broadcast();
+					OnSwipeRight.Broadcast();
 				}
 				else
 				{
-					SwipeLeftDelegate.Broadcast();
+					OnSwipeLeft.Broadcast();
 				}
 			}
 			else
 			{
 				if (Offset.Y > 0.0f)
 				{
-					SwipeDownDelegate.Broadcast();
+					OnSwipeDown.Broadcast();
 				}
 				else
 				{
-					SwipeUpDelegate.Broadcast();
+					OnSwipeUp.Broadcast();
 				}
 			}
 		}
