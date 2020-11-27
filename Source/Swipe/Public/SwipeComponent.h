@@ -49,6 +49,9 @@ public:
 	// Amount, exceeding which triggering swipe event. Default value 50 units
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Swipe")
 	float SwipeDistance;
+	// Delta time which triggering swipe event. Default value 0.2 sec
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Swipe")
+	float SwipeTriggerTime;
 private:
 	bool bTouched;
 	FVector2D TouchStartLocation;

@@ -3,17 +3,17 @@
 
 #include "SwipeComponent.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "Engine/World.h"
+#include "GameFramework/PlayerController.h"
 
-// Sets default values for this component's properties
 USwipeComponent::USwipeComponent()
 {
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
 
 
 	bTouched = false;
 	SwipeDistance = 50.0f;
+	SwipeTriggerTime = 0.2f;
 	SwipeTime = 0.0f;
 	bSwipeTriggered = false;
 	bSwipeEnded = true;
@@ -21,30 +21,22 @@ USwipeComponent::USwipeComponent()
 }
 
 
-// Called when the game starts
 void USwipeComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ...
-	UE_LOG(LogTemp, Warning, TEXT("Swipe component!"));
-
 }
 
 
-// Called every frame
 void USwipeComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	// ...
 	this->CheckSwipe();
 }
 
 void USwipeComponent::TouchBegin()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Touch Begin"));
-
 	bTouched = true;
 	TouchStartLocation = GetTouchCoordinates();
 	SwipeStartTime = GetWorld()->GetTimeSeconds();
@@ -52,8 +44,6 @@ void USwipeComponent::TouchBegin()
 
 void USwipeComponent::TouchEnd()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Touch End"));
-	
 	bTouched = false;
 	bSwipeTriggered = false;
 	bSwipeEnded = true;
@@ -89,7 +79,7 @@ void USwipeComponent::CheckSwipe()
 			bSwipeTriggered = true;
 		}
 
-		if (bSwipeTriggered && bSwipeEnded && SwipeTime < 0.3f)
+		if (bSwipeTriggered && bSwipeEnded && SwipeTime < SwipeTriggerTime)
 		{
 			bSwipeEnded = false;
 			TouchEndLocation = GetTouchCoordinates();
